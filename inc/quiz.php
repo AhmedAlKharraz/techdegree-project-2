@@ -12,14 +12,9 @@ include('questions.php');
 
 $toast = NULL;
 $show_score = false;
+$isCorrect = false;
 
 //Set Fake value to avoid any errors
-$index = 0;
-$question['leftAdder'] = 0;
-$question['rightAdder'] = 0;
-$answers[0] =0;
-$answers[1] = 0;
-$answers[2] = 0;
 
 
 $totalQuestions = count($questions);
@@ -31,13 +26,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
         $toast = "Well done! That's correct";
         $_SESSION['totalCorrect'] += 1;
+        $isCorrect = true;
 
     } else {
 
         $toast = "Bummer! Thas was incorrect";
+        $isCorrect = false;
 
     }
 }
+
 
 if (!isset($_SESSION['used_indexes'])){
     
@@ -49,10 +47,11 @@ if (!isset($_SESSION['used_indexes'])){
 
 if (count($_SESSION['used_indexes']) == $totalQuestions){
 
-    echo "Session have to be reset";
+    //echo "Session have to be reset";
     unset($_SESSION["used_indexes"]);
     $_SESSION['used_indexes'] = array();
     $show_score = true;
+    $toast = '';
 
 } else {
 
@@ -60,10 +59,10 @@ if (count($_SESSION['used_indexes']) == $totalQuestions){
 
     if (count($_SESSION['used_indexes']) == 0){
 
-        echo "Chech used indexes to be zeroooo";
+        //echo "Chech used indexes to be zeroooo";
         $_SESSION['totalCorrect'] = 0;
         $toast = '';
-
+        
     }
 
     do {
@@ -72,12 +71,18 @@ if (count($_SESSION['used_indexes']) == $totalQuestions){
     
     $question = $questions[$index];
     array_push($_SESSION['used_indexes'], $index);
-    $answers =  array(
-        $question['correctAnswer'], 
-        $question['firstIncorrectAnswer'], 
-        $question['secondIncorrectAnswer'],
-        );
-    shuffle($answers);
+
+        $answers =  array(
+            $question['correctAnswer'], 
+            $question['firstIncorrectAnswer'], 
+            $question['secondIncorrectAnswer'],
+            );
+        shuffle($answers);
+
+}
+
+function checkAnswer($isCorrect){
+
 
 }
 // Start the session

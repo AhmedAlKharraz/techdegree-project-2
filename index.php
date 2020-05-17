@@ -8,12 +8,7 @@ ini_set("html_errors", 1);
 ?>
 <?php 
 include('inc/quiz.php'); 
-//var_dump($_POST["answer"]) . "<br />";
-//var_dump($_POST["index"]) . "<br />";
-//var_dump($_SESSION) . "<br />";
-var_dump($_SESSION['used_indexes']) . "<br />";
-//var_dump($totalQuestions);
-//var_dump($_SESSION['totalCorrect']);
+
 ?>
 
 <!DOCTYPE html>
@@ -41,22 +36,35 @@ var_dump($_SESSION['used_indexes']) . "<br />";
 
             }
             ?>
-            <p class="breadcrumbs"><?php echo "Question " 
+            <p class="breadcrumbs">
+            <?php 
+            if (!$show_score){
+            echo "Question " 
             . count($_SESSION['used_indexes'])
             . " of " 
-            . $totalQuestions ?></p>
+            . $totalQuestions;
+            } ?></p>
 
-            <p class="quiz" <?php echo $show_score ? 'style="display:none"' : 'style="display:block"'; ?>>
-                                <?php echo "What is " 
-                                . $question['leftAdder'] 
-                                . " + " 
-                                . $question['rightAdder'] 
-                                . " ?"; ?> </p>
-            <form action="index.php" method="post" <?php echo $show_score ? 'style="display:none"' : 'style="display:block"'; ?>>
+            <p class="quiz">
+                                <?php 
+                                if(count($_SESSION['used_indexes']) == 0){
+                                    $question['leftAdder'] = '';
+                                    $question['rightAdder'] = '';
+                                    echo "Would you like to reset the Quiz ?";
+                                } else {
+                                    echo "What is " 
+                                    . $question['leftAdder'] 
+                                    . " + " 
+                                    . $question['rightAdder'] 
+                                    . " ?";
+                                } ?> </p>
+            <form action="index.php" method="post" <?php //echo $show_score ? 'style="display:none"' : 'style="display:block"'; ?>>
                 <input type="hidden" name="index" value= <?php echo $index; ?> />
-                <input type="submit" class="btn" name="answer" value= <?php echo $answers[0]; ?> />
-                <input type="submit" class="btn" name="answer" value= <?php echo $answers[1]; ?> />
-                <input type="submit" class="btn" name="answer" value= <?php echo $answers[2]; ?> />
+                <input <?php echo $show_score ? 'type="hidden"' : 'type="submit"'; ?> class="btn" name="answer" value= <?php echo $answers[0]; ?> />
+                <input <?php echo $show_score ? 'type="hidden"' : 'type="submit"'; ?> class="btn" name="answer" value= <?php echo $answers[1]; ?> />
+                <input <?php echo $show_score ? 'type="hidden"' : 'type="submit"'; ?> class="btn" name="answer" value= <?php echo $answers[2]; ?> />
+                <input <?php echo $show_score ? 'type="submit"' : 'type="hidden"'; ?> class="btn" name="answer" value="Reset" />
+
             </form>
         </div>
     </div>

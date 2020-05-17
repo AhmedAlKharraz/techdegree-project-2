@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 // Report simple running errors
 error_reporting(E_ALL);

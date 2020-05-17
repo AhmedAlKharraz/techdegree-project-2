@@ -2,6 +2,10 @@
 
 body {
   font-family: 'Playfair Display', serif;
+  background: url('../img/2342891.jpg');
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: 50%;
 }
 
 #quiz-box {
@@ -67,4 +71,12 @@ body {
 
 .btn:focus {
   outline: none;
+}
+
+.btn-correct {
+  color: rgb(63, 209, 136);
+}
+
+.btn-wrong {
+  color: rgb(190, 74, 74);
 }
