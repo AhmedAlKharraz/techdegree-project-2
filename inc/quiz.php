@@ -14,7 +14,7 @@ $toast = NULL;
 $show_score = false;
 $isCorrect = false;
 
-$totalQuestions = count($_SESSION['questions']);
+$totalQuestions = count(make_questions());
 
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
     //var_dump($_POST['answer']);

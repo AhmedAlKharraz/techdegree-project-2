@@ -7,6 +7,7 @@ ini_set('display_errors', 1);
 // HTML formatted errors
 ini_set("html_errors", 1);
 
+//var_dump(make_questions());
 function make_questions(){
     $questionsArr = [];
     for($i=0; $i < 10;  $i++) {
