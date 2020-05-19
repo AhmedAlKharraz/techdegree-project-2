@@ -14,77 +14,83 @@ $toast = NULL;
 $show_score = false;
 $isCorrect = false;
 
-//Set Fake value to avoid any errors
-
-
 $totalQuestions = count($questions);
 
-
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
+    //var_dump($_POST['answer']);
+        if($_POST['reset']){
+            $_POST['reset'] = 'answer';
 
-    if ($_POST['answer'] == $questions[$_POST['index']]['correctAnswer']){
+        if ($_POST['answer'] == $questions[$_POST['index']]['correctAnswer']){
 
-        $toast = "Well done! That's correct";
-        $_SESSION['totalCorrect'] += 1;
-        $isCorrect = true;
+            $toast = "Well done! That's correct";
+            $_SESSION['totalCorrect'] += 1;
+            $isCorrect = true;
 
-    } else {
+        } else {
 
-        $toast = "Bummer! Thas was incorrect";
-        $isCorrect = false;
+            $toast = "Bummer! Thas was incorrect";
+            $isCorrect = false;
 
+        }
     }
 }
 
 
-if (!isset($_SESSION['used_indexes'])){
+if (!isset($_SESSION['used_indexess'])){
     
-    $_SESSION['used_indexes'] = array();
+    $_SESSION['used_indexess'] = array();
     $_SESSION['totalCorrect'] = 0;
 
 }
 
 
-if (count($_SESSION['used_indexes']) == $totalQuestions){
+if (count($_SESSION['used_indexess']) == $totalQuestions){
 
     //echo "Session have to be reset";
-    unset($_SESSION["used_indexes"]);
-    $_SESSION['used_indexes'] = array();
+    $index = 0;
+    $answers =  array(
+        $question['correctAnswer'] = '', 
+        $question['firstIncorrectAnswer'] = '', 
+        $question['secondIncorrectAnswer'] = '',
+        );
+    unset($_SESSION["used_indexess"]);
+    $_SESSION['used_indexess'] = array();
     $show_score = true;
     $toast = '';
+
+    //print_r($answers);
+    //print_r($index);
+
 
 } else {
 
     $show_score = false;
 
-    if (count($_SESSION['used_indexes']) == 0){
+    if (count($_SESSION['used_indexess']) == 0){
 
-        //echo "Chech used indexes to be zeroooo";
+        //echo "Check used indexes to be zeroooo";
         $_SESSION['totalCorrect'] = 0;
         $toast = '';
         
     }
-
+    
     do {
         $index = array_rand($questions);
-    } while (in_array($index, $_SESSION['used_indexes']));
+    } while (in_array($index, $_SESSION['used_indexess']));
+    
     
     $question = $questions[$index];
-    array_push($_SESSION['used_indexes'], $index);
+    array_push($_SESSION['used_indexess'], $index);
 
-        $answers =  array(
-            $question['correctAnswer'], 
-            $question['firstIncorrectAnswer'], 
-            $question['secondIncorrectAnswer'],
-            );
-        shuffle($answers);
-
+    $answers =  array(
+        $question['correctAnswer'], 
+        $question['firstIncorrectAnswer'], 
+        $question['secondIncorrectAnswer'],
+        );
+    shuffle($answers);
 }
 
-function checkAnswer($isCorrect){
-
-
-}
 // Start the session
 
 

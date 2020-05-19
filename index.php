@@ -1,4 +1,5 @@
 <?php
+
 // Report simple running errors
 error_reporting(E_ALL);
 // Make sure they're on screen
@@ -40,14 +41,14 @@ include('inc/quiz.php');
             <?php 
             if (!$show_score){
             echo "Question " 
-            . count($_SESSION['used_indexes'])
+            . count($_SESSION['used_indexess'])
             . " of " 
             . $totalQuestions;
             } ?></p>
 
             <p class="quiz">
                                 <?php 
-                                if(count($_SESSION['used_indexes']) == 0){
+                                if(count($_SESSION['used_indexess']) == 0){
                                     $question['leftAdder'] = '';
                                     $question['rightAdder'] = '';
                                     echo "Would you like to reset the Quiz ?";
@@ -60,10 +61,11 @@ include('inc/quiz.php');
                                 } ?> </p>
             <form action="index.php" method="post" <?php //echo $show_score ? 'style="display:none"' : 'style="display:block"'; ?>>
                 <input type="hidden" name="index" value= <?php echo $index; ?> />
+                <br>
                 <input <?php echo $show_score ? 'type="hidden"' : 'type="submit"'; ?> class="btn" name="answer" value= <?php echo $answers[0]; ?> />
                 <input <?php echo $show_score ? 'type="hidden"' : 'type="submit"'; ?> class="btn" name="answer" value= <?php echo $answers[1]; ?> />
                 <input <?php echo $show_score ? 'type="hidden"' : 'type="submit"'; ?> class="btn" name="answer" value= <?php echo $answers[2]; ?> />
-                <input <?php echo $show_score ? 'type="submit"' : 'type="hidden"'; ?> class="btn" name="answer" value="Reset" />
+                <input <?php echo $show_score ? 'type="submit"' : 'type="hidden"'; ?> class="btn" id="reset" name="reset" value="Reset" />
 
             </form>
         </div>

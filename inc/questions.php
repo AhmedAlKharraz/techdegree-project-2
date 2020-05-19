@@ -7,6 +7,26 @@ ini_set('display_errors', 1);
 // HTML formatted errors
 ini_set("html_errors", 1);
 
+/*
+$questionsArr = [];
+for($i=0; $i < 10;  $i++) {
+    $left = rand(0,100);
+    $right = rand(0,100);
+    $correct = $left + $right;
+    do{
+       $first_incorrect = $correct +  rand(-20, 20);
+       $second_incorrect =  $correct + rand(-20,20);
+    } while (($first_incorrect == $second_incorrect) || (($first_incorrect || $second_incorrect) == $correct));
+   $questionsArr[] = [
+       "leftAdder" => $left,
+        "rightAdder" => $right,
+        "correctAnswer" => $correct,
+        "firstIncorrectAnswer" => $first_incorrect,
+        "secondIncorrectAnswer" => $second_incorrect,
+   ];
+}
+*/
+
 $questions[] =
     [
         "leftAdder" => 3,
