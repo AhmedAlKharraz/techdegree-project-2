@@ -14,14 +14,14 @@ $toast = NULL;
 $show_score = false;
 $isCorrect = false;
 
-$totalQuestions = count($questions);
+$totalQuestions = count($_SESSION['questions']);
 
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
     //var_dump($_POST['answer']);
         if($_POST['reset']){
             $_POST['reset'] = 'answer';
 
-        if ($_POST['answer'] == $questions[$_POST['index']]['correctAnswer']){
+        if ($_POST['answer'] == $_SESSION['questions'][$_POST['index']]['correctAnswer']){
 
             $toast = "Well done! That's correct";
             $_SESSION['totalCorrect'] += 1;
@@ -70,17 +70,19 @@ if (count($_SESSION['used_indexess']) == $totalQuestions){
     if (count($_SESSION['used_indexess']) == 0){
 
         //echo "Check used indexes to be zeroooo";
+        $_SESSION['questions'] = make_questions();
         $_SESSION['totalCorrect'] = 0;
         $toast = '';
         
+        print_r($_SESSION['questions']);
     }
     
     do {
-        $index = array_rand($questions);
+        $index = array_rand($_SESSION['questions']);
     } while (in_array($index, $_SESSION['used_indexess']));
     
     
-    $question = $questions[$index];
+    $question = $_SESSION['questions'][$index];
     array_push($_SESSION['used_indexess'], $index);
 
     $answers =  array(

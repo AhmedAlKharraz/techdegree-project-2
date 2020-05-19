@@ -7,26 +7,28 @@ ini_set('display_errors', 1);
 // HTML formatted errors
 ini_set("html_errors", 1);
 
-/*
-$questionsArr = [];
-for($i=0; $i < 10;  $i++) {
-    $left = rand(0,100);
-    $right = rand(0,100);
-    $correct = $left + $right;
-    do{
-       $first_incorrect = $correct +  rand(-20, 20);
-       $second_incorrect =  $correct + rand(-20,20);
-    } while (($first_incorrect == $second_incorrect) || (($first_incorrect || $second_incorrect) == $correct));
-   $questionsArr[] = [
-       "leftAdder" => $left,
-        "rightAdder" => $right,
-        "correctAnswer" => $correct,
-        "firstIncorrectAnswer" => $first_incorrect,
-        "secondIncorrectAnswer" => $second_incorrect,
-   ];
+function make_questions(){
+    $questionsArr = [];
+    for($i=0; $i < 10;  $i++) {
+        $left = rand(0,100);
+        $right = rand(0,100);
+        $correct = $left + $right;
+        do{
+        $first_incorrect = $correct +  rand(-10, 10);
+        $second_incorrect =  $correct + rand(-10,10);
+        } while (($first_incorrect == $second_incorrect) || (($first_incorrect == $correct) ||  ($second_incorrect== $correct)));
+        $questionsArr[] = [
+            "leftAdder" => $left,
+            "rightAdder" => $right,
+            "correctAnswer" => $correct,
+            "firstIncorrectAnswer" => $first_incorrect,
+            "secondIncorrectAnswer" => $second_incorrect,
+        ];
+    }
+    return $questionsArr;
 }
-*/
 
+/*
 $questions[] =
     [
         "leftAdder" => 3,
@@ -107,6 +109,6 @@ $questions[] =
     "firstIncorrectAnswer" => 59,
     "secondIncorrectAnswer" => 51
     ];
-
+*/
 
 ?>
